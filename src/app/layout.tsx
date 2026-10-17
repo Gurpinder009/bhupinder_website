@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "./components/shared/Header";
+import Footer from "./components/shared/Footer";
+
 
 export const metadata: Metadata = {
   title: "BHUPINDER — Digital Studio & Software Architecture",
@@ -26,8 +29,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#0b0b0d] text-[#e2e8f0] antialiased selection:bg-[#c5a059]/30 selection:text-[#f4efe6]">
-        {children}
+      <body className="flex min-h-screen flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

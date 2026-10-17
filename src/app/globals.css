@@ -1,52 +1,62 @@
 @import "tailwindcss";
 
-@layer base {
-  :root {
-    --font-serif: 'Playfair Display', Georgia, serif;
-    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-  }
+/* Fonts: values come from next/font variables set in layout.tsx */
+@theme inline {
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+}
 
+
+@theme {
+  /* Brand palette */
+  --color-cream: #f2e8cf;
+  --color-cream-dark: #e6d9b5;
+  --color-ink: #2b2118;
+  --color-forest: #386641;
+  --color-leaf: #6a994e;
+  --color-brick: #bc4749;
+  --color-highlights :#fff;
+
+  /* Semantic tokens: use these in components */
+
+--color-highlighted:var(--color-highlights);
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-primary: var(--color-forest);
+  --color-primary-foreground: var(--color-cream);
+  --color-accent: var(--color-brick);
+  --color-muted: #5f5541;
+  --color-border: #d9cba3;
+  --color-surface: #f8f1de;
+
+  --radius-card: 0.75rem;
+  --shadow-card: 0 4px 24px -8px rgb(43 33 24 / 0.2);
+}
+
+@layer base {
   html {
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
-    font-family: var(--font-sans);
-    background-color: #0a0a0a;
-    color: #f5f5f7;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 
-  h1, h2, h3, h4, .font-serif {
-    font-family: var(--font-serif);
+  h1, h2, h3, h4 {
+    @apply font-serif;
   }
-}
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-::-webkit-scrollbar-thumb {
-  background: #262626;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
-}
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
 
-/* Minimalist Image Zoom Effect */
-.img-zoom {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.group:hover .img-zoom {
-  transform: scale(1.04);
-}
-
-/* Clean Line Accent */
-.hotc-divider {
-  height: 1px;
-  background-color: #262626;
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
 }
