@@ -88,7 +88,7 @@ function HeroSlide({ photo, active, isFirst }: { photo: HeroPhoto; active: boole
         alt={photo.alt}
         fill
         sizes="100vw"
-        className="object-cover"
+        className="object-center object-cover"
         // ! Only the first image gets priority (it is the page's biggest paint)
         priority={isFirst}
       />
@@ -232,7 +232,7 @@ export default function HeroSlider({
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
       }}
-      className="relative h-[70svh] max-h-[900px] min-h-[720px] w-full overflow-hidden bg-ink"
+      className="relative h-[70svh] max-h-[900px] min-h-[650px] w-full overflow-hidden bg-ink"
     >
       {/* ? Announce slide changes only while autoplay is off, so it never spams */}
       <div aria-live={playing ? "off" : "polite"}>

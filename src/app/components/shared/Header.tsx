@@ -9,16 +9,16 @@ import { useEffect, useState } from "react";
 // ============================================================
 
 const navLinks = [
-  { name: "Photography", href: "/home" },
+ 
   { name: "Films", href: "/films" },
+   { name: "Gallery", href: "/gallery" },
   { name: "Services", href: "/services" },
   { name: "About", href: "/about" },
   { name: "Contact Me", href: "/contact-me", cta: true },
 ] as const;
-
-// * Routes that start with the HeroSlider. Header floats over the hero here.
-const HERO_ROUTES = ["/", "/home","/contact-me"];
-
+// * Pages that start with a hero image. Header floats over the hero here.
+const HERO_ROUTES = ["/", "/home", "/contact-me", "/films", "/about", "/gallery"]; // exact matches
+const HERO_PREFIXES = ["/films/"]; // every page under these, e.g. /films/film-one
 // ? How far (px) the page scrolls before the header turns solid
 const SCROLL_THRESHOLD = 24;
 
@@ -31,7 +31,8 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const isHeroPage = HERO_ROUTES.includes(pathname);
+const isHeroPage =
+  HERO_ROUTES.includes(pathname) || HERO_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 
   // * Transparent only on the hero page, at the very top, with the mobile menu closed
   const overHero = isHeroPage && !scrolled && !open;

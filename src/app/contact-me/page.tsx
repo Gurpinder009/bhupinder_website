@@ -53,14 +53,14 @@ const controlClass =
 
 function ContactHero() {
   return (
-    <section className="relative h-[45svh] min-h-[400px] max-h-[560px] w-full overflow-hidden bg-ink">
+    <section className="relative h-[45svh] min-h-[550px] max-h-[660px] w-full overflow-hidden bg-ink">
       <Image
         // TODO: replace with the photographer's real banner photo
         src="/images/photos/satwinder-image9.jpeg"
         alt="Camera and film equipment on a table"
         fill
         sizes="100vw"
-        className="object-cover"
+        className="object-cover object-bottom"
         priority
       />
 
