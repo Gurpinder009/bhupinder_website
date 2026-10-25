@@ -6,7 +6,7 @@ const DRIFT = 15; // how far the video moves up, in screen-height percent (0 = p
 const ZOOM = 0.06; // extra zoom by the end of the scroll (0 = no zoom)
 const DIM = 0.3; // how dark it gets at the end, 0 to 1 (0 = no dimming)
 
-export default function HeroVideo({ src, title = "storyfellafilms" }: { src: string; title?: string }) {
+export default function HeroVideo({ src, title = "Story Fella Films" }: { src: string; title?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const dimRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -88,7 +88,7 @@ export default function HeroVideo({ src, title = "storyfellafilms" }: { src: str
         {/* ! This is the page's only h1 */}
         <h1
           ref={titleRef}
-          className="text-center font-serif text-[clamp(1.5rem,4.5vw,3.25rem)] font-semibold leading-none tracking-wide text-white will-change-transform [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
+          className="text-center  font-serif text-[clamp(6.5rem,4.5vw,3.25rem)] font-semibold leading-none tracking-wide text-white will-change-transform [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]"
         >
           {title}
         </h1>

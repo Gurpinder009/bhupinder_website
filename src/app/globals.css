@@ -8,18 +8,20 @@
 
 @theme {
   /* ============ Brand palette ============ */
-  --color-cream: #f5eee0; /* page background: warm off-white */
-  --color-cream-dark: #e8dcc0;
+  --color-cream: #fff; /* page background: warm off-white */
+  --color-cream-dark: #eaf1ef;
   --color-ink: #12302c; /* text and dark bands: deep green-black */
   --color-forest: #1f6b61; /* main brand colour: teal green */
   --color-leaf: #16564d; /* ? button hover: deliberately DARKER, so cream text keeps good contrast */
   --color-brick: #a63a38; /* errors */
-  --color-gold: #d8b45a; /* ? decorative accent. Use on dark surfaces only, it is too light on cream */
+  --color-gold: #806523; /* ? decorative accent. Use on dark surfaces only, it is too light on cream */
   --color-highlights: #fff;
 
   /* ============ Semantic tokens: use these in components ============ */
   --color-highlighted: var(--color-highlights);
   --color-background: var(--color-cream);
+  --color-background-darker: var(--color-cream-dark);
+
   --color-foreground: var(--color-ink);
   --color-primary: var(--color-forest);
   --color-primary-foreground: var(--color-cream);

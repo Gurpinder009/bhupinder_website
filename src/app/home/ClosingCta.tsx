@@ -10,10 +10,10 @@ const EMAIL = "hello@example.com"; // TODO: the photographer's real address
 
 export default function ClosingCta() {
   return (
-    <section aria-labelledby="cta-title" className="mx-auto max-w-4xl px-6 py-28 text-center md:py-44 ">
+    <section aria-labelledby="cta-title" className="mx-auto max-w-4xl px-6 py-28 text-center md:pt-15 md:pb-34 ">
       <Reveal>
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gold">Let&apos;s talk</p>
-        <h2 id="cta-title" className="mt-6 font-serif text-4xl font-semibold leading-[1.05] text-foreground md:text-7xl">
+        <h2 id="cta-title" className="mt-6 font-serif text-2xl font-semibold leading-[1.05] text-foreground md:text-4xl">
           Have a story <em className="font-normal italic text-gold">to tell?</em>
         </h2>
 
@@ -24,10 +24,10 @@ export default function ClosingCta() {
           {EMAIL}
         </a>
 
-        <div className="mt-10">
+        <div className="mt-0">
           <Link
             href="/contact-me"
-          className="mt-10 inline-block rounded-full border border-foreground px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground transition-colors hover:bg-foreground hover:text-background"
+          className="mt-6 inline-block rounded-full border border-foreground px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-foreground transition-colors hover:bg-foreground hover:text-background"
            
           >
             Get in touch

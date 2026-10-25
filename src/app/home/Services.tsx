@@ -21,7 +21,7 @@ export default function Services() {
         eyebrow="What we do"
         title="Made for"
         accent="the moments"
-        action={{ label: "All services", href: "/services" }}
+        action={{ label: "Contact Me", href: "/contact-me" }}
       />
 
       <ul className="mt-12 grid divide-y divide-border border-y border-border md:mt-16 md:grid-cols-3 md:divide-x md:divide-y-0">
