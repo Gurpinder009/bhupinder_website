@@ -30,18 +30,41 @@ export default function HomePage() {
 
       {/* Container 2: scrolls up over the video */}
       <div className="relative z-10 mt-[100svh] min-h-svh surface-green">
-        <IntroBlock />
-        <Divider />
-        <TileRow onOpen={setActiveTile} />
-        <Divider />
-        <Services />
 
-        {/* * Darker band: the tonal break in the middle of the page */}
-        <div className="bg-black/25">
-          <Memories />
+ <div className="surface-deep">
+          <Divider />
+        <TileRow onOpen={setActiveTile} />
+          
         </div>
 
-        <ClosingCta />
+        <div className="surface-green">
+          <Divider />
+          <Services />
+        </div>
+
+        {/* * Darker band: the tonal break in the middle of the page */}
+
+
+        <div className="surface-deep">
+          <Divider />
+          <Memories />
+
+
+
+        </div>
+
+
+        <div className="surface-green">
+          <Divider />
+          <ClosingCta />
+
+
+
+
+        </div>
+
+
+
       </div>
 
       {activeTile && <VideoModal tile={activeTile} onClose={() => setActiveTile(null)} />}
