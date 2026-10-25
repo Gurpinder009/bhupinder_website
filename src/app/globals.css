@@ -6,31 +6,30 @@
   --font-serif: var(--font-playfair), Georgia, serif;
 }
 
-
 @theme {
-  /* Brand palette */
-  --color-cream: #f2e8cf;
-  --color-cream-dark: #e6d9b5;
-  --color-ink: #2b2118;
-  --color-forest: #386641;
-  --color-leaf: #6a994e;
-  --color-brick: #bc4749;
-  --color-highlights :#fff;
+  /* ============ Brand palette ============ */
+  --color-cream: #f5eee0; /* page background: warm off-white */
+  --color-cream-dark: #e8dcc0;
+  --color-ink: #12302c; /* text and dark bands: deep green-black */
+  --color-forest: #1f6b61; /* main brand colour: teal green */
+  --color-leaf: #16564d; /* ? button hover: deliberately DARKER, so cream text keeps good contrast */
+  --color-brick: #a63a38; /* errors */
+  --color-gold: #d8b45a; /* ? decorative accent. Use on dark surfaces only, it is too light on cream */
+  --color-highlights: #fff;
 
-  /* Semantic tokens: use these in components */
-
---color-highlighted:var(--color-highlights);
+  /* ============ Semantic tokens: use these in components ============ */
+  --color-highlighted: var(--color-highlights);
   --color-background: var(--color-cream);
   --color-foreground: var(--color-ink);
   --color-primary: var(--color-forest);
   --color-primary-foreground: var(--color-cream);
   --color-accent: var(--color-brick);
-  --color-muted: #5f5541;
-  --color-border: #d9cba3;
-  --color-surface: #f8f1de;
+  --color-muted: #55645f; /* secondary text */
+  --color-border: #d8ccb0;
+  --color-surface: #fbf6ea; /* panels and cards */
 
   --radius-card: 0.75rem;
-  --shadow-card: 0 4px 24px -8px rgb(43 33 24 / 0.2);
+  --shadow-card: 0 4px 24px -8px rgb(18 48 44 / 0.22);
 }
 
 @layer base {
@@ -59,4 +58,47 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
+}
+
+/* ============================================================
+   * Green gradient surface. It also re-points the theme colours, so every
+   child that uses text-foreground, text-muted, border-border, bg-primary
+   and so on switches to light-on-dark automatically.
+   ============================================================ */
+@utility surface-green {
+  background: #051d1b;
+  /* ? Darker at both ends. Bottom-left is nearly black-green, top-right is a deep teal */
+  background: linear-gradient(to top right, #051d1b, #154640);
+
+  --color-foreground: #f6f0dc; /* main text */
+  --color-muted: #c9ddd5; /* secondary text */
+  --color-border: rgb(255 255 255 / 0.2);
+  --color-background: #0a2825; /* ! used by "hover:text-background" on outlined buttons */
+  --color-primary: #f2e8cf; /* filled buttons become cream */
+  --color-primary-foreground: #0a2825; /* ...with dark green text */
+  --color-leaf: #ffffff; /* hover colour for filled buttons */
+  --color-surface: rgb(255 255 255 / 0.08); /* panels read as lighter green */
+  --color-accent: #ffc7bd; /* soft coral, readable on green */
+
+  color: var(--color-foreground);
+}
+
+/* ============================================================
+   * Solid deep green, for the footer. Same colour re-pointing as
+   surface-green, but flat so it reads as a clean band under the gradient.
+   ============================================================ */
+@utility surface-deep {
+  background: #051d1b; /* ? matches the dark end of the gradient */
+
+  --color-foreground: #f6f0dc; /* main text */
+  --color-muted: #c9ddd5; /* secondary text */
+  --color-border: rgb(255 255 255 / 0.14);
+  --color-background: #051d1b;
+  --color-primary: #f2e8cf; /* links and hover colour become cream */
+  --color-primary-foreground: #051d1b;
+  --color-leaf: #ffffff;
+  --color-surface: rgb(255 255 255 / 0.08);
+  --color-accent: #ffc7bd;
+
+  color: var(--color-foreground);
 }

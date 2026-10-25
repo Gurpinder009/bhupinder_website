@@ -1,4 +1,3 @@
-"use client"
 import Link from "next/link";
 
 const exploreLinks = [
@@ -15,19 +14,19 @@ const socialLinks = [
   { name: "YouTube", href: "https://youtube.com/" },
 ] as const;
 
+const linkClass = "text-muted transition-colors hover:text-white";
+
 export default function Footer() {
   // const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-border bg-surface">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 py-12 md:grid-cols-3 md:px-8">
+    <footer className="surface-deep border-t border-border z-10">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-3 md:px-8">
         <div>
           <Link href="/home" className="font-serif text-xl font-semibold text-foreground">
             Filmy Stories
           </Link>
-          <p className="mt-3 max-w-xs text-sm text-muted">
-            Photography and films that tell your story.
-          </p>
+          <p className="mt-3 max-w-xs text-sm text-muted">Photography and films that tell your story.</p>
         </div>
 
         <nav aria-label="Footer">
@@ -35,7 +34,7 @@ export default function Footer() {
           <ul className="mt-3 space-y-2 text-sm">
             {exploreLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-muted transition-colors hover:text-primary">
+                <Link href={link.href} className={linkClass}>
                   {link.name}
                 </Link>
               </li>
@@ -47,24 +46,19 @@ export default function Footer() {
           <h2 className="font-serif text-base font-semibold text-foreground">Get in touch</h2>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="text-muted transition-colors hover:text-primary">
+              <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
                 {CONTACT_EMAIL}
               </a>
             </li>
             {socialLinks.map((s) => (
               <li key={s.name}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted transition-colors hover:text-primary"
-                >
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {s.name}
                 </a>
               </li>
             ))}
             <li>
-              <Link href="/contact-me" className="font-medium text-primary hover:underline">
+              <Link href="/contact-me" className="font-medium text-gold hover:underline">
                 Send a message
               </Link>
             </li>
@@ -73,8 +67,8 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-border">
-        <p className="mx-auto max-w-7xl px-6 py-5 text-xs text-muted md:px-8">
-          &copy; {2026} Filmy Stories. All rights reserved.
+        <p className="mx-auto max-w-6xl px-6 py-5 text-xs text-muted md:px-8">
+          &copy; 2024 Filmy Stories. All rights reserved.
         </p>
       </div>
     </footer>

@@ -4,23 +4,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-// ============================================================
-// * CONFIG: replace these with the photographer's real details
-// ============================================================
-
 // TODO: real studio address (the map is built from this text)
 const ADDRESS = "123 Example Street, Vancouver, BC";
 const EMAIL = "hello@example.com";
 const PHONE = "+1 (604) 555-0123";
 const Insta = "https://www.instagram.com/bsaurav_"
 
-// ? Free embed URL, no API key needed
-const MAP_SRC = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11807.98116420635!2d-122.82519116072514!3d49.164543804535064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5485d9e4b24a853b%3A0x87bba2256d9df31!2s14485%2088a%20Ave%2C%20Surrey%2C%20BC%20V3R%201A2!5e1!3m2!1sen!2sca!4v1792256212010!5m2!1sen!2sca"
-
-
-// ============================================================
-// * TYPES AND FORM CONFIG
-// ============================================================
 
 type ContactFormValues = {
   firstName: string;
@@ -85,20 +74,7 @@ function ContactHero() {
 // * Google Maps in an iframe, with an "Open in Maps" link on top.
 // ============================================================
 
-function MapEmbed() {
-  return (
-    <div className="relative overflow-hidden rounded-card border border-border shadow-card">
-      <iframe
-        title="Map showing the studio location"
-        src={MAP_SRC}
-        className="block h-72 w-full md:h-72"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        allowFullScreen
-      />
-    </div>
-  );
-}
+
 
 // ============================================================
 // * COMPONENT: ContactRow
@@ -352,14 +328,9 @@ export default function ContactMe() {
     <main>
       <ContactHero />
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:px-8 md:py-16 lg:grid-cols-2 lg:gap-14">
-        {/* ? order-2 on phones puts the form above the map; lg restores left/right */}
-        <div className="order-2 space-y-6 lg:order-1">
-          <MapEmbed />
-          <ContactDetails />
-        </div>
-
-        <div className="order-1 lg:order-2">
+      <div className="mx-auto flex max-w-6xl gap-10 px-6 py-12 md:px-8 md:py-16 justify-center">
+    
+        <div className="order-1 lg:order-2 relative bottom-50 bg-white py-15 px-10 min-w-2xl">
           <ContactForm />
         </div>
       </div>

@@ -62,103 +62,106 @@ const isHeroPage =
   // * STYLES
   // ============================================================
 
-  const linkClass = (href: string, cta?: boolean) => {
-    const base = "rounded-md px-3 py-2 text-sm font-medium transition-colors";
+const linkClass = (href: string, cta?: boolean) => {
+  const base = "rounded-md px-3 py-2 text-sm font-medium transition-colors";
 
-    // * Contact button: outlined over the hero, filled once the bar is solid
-    if (cta) {
-      return `${base} rounded-full  px-5 ${
-        overHero
-          ? "text-primary-foreground bg-primary hover:bg-leaf"
-          : "border-primary bg-primary text-primary-foreground hover:bg-leaf"
-      }`;
-    }
-
-    if (isActive(href)) {
-      return `${base} underline decoration-2 underline-offset-8 ${overHero ? "text-white" : "text-primary"}`;
-    }
-    return `${base} ${overHero ? "text-white/85 hover:text-white" : "text-foreground/80 hover:text-primary"}`;
-  };
+  // * Contact button: outlined, fills white on hover
+  if (cta) {
+    return `${base} rounded-full border border-white/60 px-5 text-white hover:bg-white hover:text-neutral-900`;
+  }
+  if (isActive(href)) return `${base} text-white underline decoration-2 underline-offset-8`;
+  return `${base} text-white/80 hover:text-white`;
+};
 
   return (
-    <header
-      // ! fixed on the hero page so the hero can start at the top of the screen.
-      // ! sticky elsewhere so the header keeps its own space and hides nothing.
-      className={`${isHeroPage ? "fixed" : "sticky"} inset-x-0 top-0 z-50`}
+   <header
+  // ! fixed on the hero page so the hero can start at the top of the screen.
+  // ! sticky elsewhere so the header keeps its own space and hides nothing.
+  className={`${isHeroPage ? "fixed" : "sticky"} inset-x-0 top-0 z-50`}
+>
+  {/* * Dark fade at the very top, only while over the hero video */}
+  <div
+    aria-hidden="true"
+    className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-linear-to-b from-black/50 to-transparent transition-opacity duration-300 ${
+      overHero ? "opacity-100" : "opacity-0"
+    }`}
+  />
+
+  {/* * 90% wide, centred. mt-3 is the gap that lets it float. */}
+  <div className="relative mx-auto mt-3 w-[90%]">
+    {/* * Liquid glass. Fades in once you scroll. It also covers the mobile menu when it opens */}
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-2xl border border-white/20 bg-neutral-900/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_8px_32px_rgba(0,0,0,0.18)] backdrop-blur-xs backdrop-saturate-[1.2] transition-opacity duration-300 ${
+        overHero ? "opacity-0" : "opacity-100"
+      }`}
     >
-      {/* * Background layers: crossfade instead of snapping between styles */}
-      <div
-        aria-hidden="true"
-        className={`absolute inset-0 -z-10 bg-linear-to-b from-black/50 to-transparent transition-opacity duration-300 ${
-          overHero ? "opacity-100" : "opacity-0"
-        }`}
-      />
-      <div
-        aria-hidden="true"
-        className={`absolute inset-0 -z-10 border-b border-border bg-surface/95 backdrop-blur transition-opacity duration-300 ${
-          overHero ? "opacity-0" : "opacity-100"
-        }`}
-      />
+      {/* ? Soft highlight along the top, like light catching the glass */}
+      <div className="absolute inset-0 bg-linear-to-b from-white/15 via-transparent to-transparent" />
+    </div>
 
-      <nav aria-label="Main" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 md:px-8">
-        <Link
-          href="/home"
-          className={`font-serif text-xl font-semibold tracking-tight transition-colors ${
-            overHero ? "text-white" : "text-foreground"
-          }`}
-        >
-          Filmy Stories
-        </Link>
+    {/* ? The text shadow keeps the white text readable when something bright scrolls underneath */}
+    <nav
+      aria-label="Main"
+      className="flex h-16 items-center justify-between px-5 [text-shadow:0_1px_10px_rgba(0,0,0,0.35)] md:px-8"
+    >
+      <Link href="/home" className="font-serif text-xl font-semibold tracking-tight text-white">
+        Filmy Stories
+      </Link>
 
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                className={linkClass(link.href, "cta" in link)}
-              >
-                {link.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      {/* Desktop links */}
+      <ul className="hidden items-center gap-1 md:flex">
+        {navLinks.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={linkClass(link.href, "cta" in link)}
+            >
+              {link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className={`rounded-md p-2 transition-colors md:hidden ${overHero ? "text-white" : "text-foreground"}`}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
-          </svg>
-        </button>
-      </nav>
+      {/* Mobile menu button */}
+      <button
+        type="button"
+        className="rounded-md p-2 text-white md:hidden"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        onClick={() => setOpen((v) => !v)}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+        </svg>
+      </button>
+    </nav>
 
-      {/* Mobile panel (header is forced solid while this is open) */}
-      {open && (
-        <ul id="mobile-menu" className="border-t border-border bg-background px-6 py-3 md:hidden">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                onClick={() => setOpen(false)}
-                className={`block py-3 text-base ${linkClass(link.href, "cta" in link)} ${
-                  "cta" in link ? "mt-2 text-center" : ""
-                }`}
-              >
-                {link.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </header>
+    {/* Mobile panel: sits on the same glass, which grows to cover it */}
+    {open && (
+      <ul
+        id="mobile-menu"
+        className="border-t border-white/15 px-5 py-3 [text-shadow:0_1px_10px_rgba(0,0,0,0.35)] md:hidden"
+      >
+        {navLinks.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              aria-current={isActive(link.href) ? "page" : undefined}
+              onClick={() => setOpen(false)}
+              className={`block py-3 text-base ${linkClass(link.href, "cta" in link)} ${
+                "cta" in link ? "mt-2 text-center" : ""
+              }`}
+            >
+              {link.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</header>
   );
 }
