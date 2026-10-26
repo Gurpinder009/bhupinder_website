@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
+
 
 // TODO: real studio address (the map is built from this text)
 const ADDRESS = "123 Example Street, Vancouver, BC";
@@ -42,6 +45,7 @@ const controlClass =
 
 function ContactHero() {
   return (
+    <>
     <section className="relative h-[45svh] min-h-[550px] max-h-[660px] w-full overflow-hidden bg-ink">
       <Image
         // TODO: replace with the photographer's real banner photo
@@ -66,6 +70,8 @@ function ContactHero() {
         </div>
       </div>
     </section>
+
+    </>
   );
 }
 
@@ -325,6 +331,9 @@ function ContactForm() {
 
 export default function ContactMe() {
   return (
+    <>
+    
+    <Header/>
     <main>
       <ContactHero />
 
@@ -335,6 +344,9 @@ export default function ContactMe() {
         </div>
       </div>
     </main>
+    <Footer/>
+    </>
+
   );
 }
 

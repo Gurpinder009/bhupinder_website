@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/app/components/shared/HomeSections";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 export const metadata = {
   title: "About",
@@ -277,14 +279,18 @@ function CtaBand() {
 
 export default function AboutPage() {
   return (
+    <>
+    <Header/>
     <main>
-      <AboutHero />
+      
       <StorySection />
       <BeliefsSection />
       <ProcessSection />
       <PullQuote />
-      <CtaBand />
+      {/* <CtaBand /> */}
     </main>
+    <Footer/>
+    </>
   );
 }
 

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { categoryLabels, films, type Film, type FilmCategory } from "@/app/components/shared/data/films";
 import { FilmItem } from "../components/shared/HomeSections";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 // ============================================================
 // * TYPES AND CONFIG
@@ -168,6 +170,8 @@ export default function FilmsPage() {
     .sort((a:Film, b:Film) => b.date.localeCompare(a.date)); // newest first
 
   return (
+    <>
+    <Header/>
     <main>
       <FilmsHero />
 
@@ -176,6 +180,8 @@ export default function FilmsPage() {
         <FilmGrid items={visible} />
       </section>
     </main>
+    <Footer/>
+    </>
   );
 }
 
