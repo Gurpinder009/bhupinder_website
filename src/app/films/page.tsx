@@ -115,7 +115,7 @@ function CategoryFilter({
               className={`rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
                 active === c.slug
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-surface text-foreground hover:border-primary hover:text-primary"
+                  : "border-border bg-background-darker text-foreground hover:border-primary hover:text-primary"
               }`}
             >
               {c.label} <span className="opacity-60">({countFor(c.slug)})</span>
@@ -255,7 +255,7 @@ function Pagination({
   if (totalPages <= 1) return null;
 
   const edge =
-    "inline-flex h-11 items-center justify-center rounded-full border border-border bg-surface px-5 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-40";
+    "inline-flex h-11 items-center justify-center rounded-full border border-border bg-backrgound-darker px-5 text-sm font-semibold uppercase tracking-[0.15em] text-foreground transition-colors hover:border-primary hover:text-primary disabled:pointer-events-none disabled:opacity-40";
 
   return (
     <nav aria-label="Pagination" className="mt-10 border-t border-border pt-10 md:mt-16">
@@ -284,7 +284,7 @@ function Pagination({
                 className={`inline-flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold transition-colors ${
                   item === page
                     ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-surface text-foreground hover:border-primary hover:text-primary"
+                    : "border-border bg-background-darker text-foreground hover:border-primary hover:text-primary"
                 }`}
               >
                 {item}

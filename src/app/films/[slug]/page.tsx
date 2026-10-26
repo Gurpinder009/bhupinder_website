@@ -1,7 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import FilmPlayer from "@/app/components/shared/FilmPlayer";
-import { films } from "@/app/components/shared/data/films";
+import { categoryLabels, films } from "@/app/components/shared/data/films";
+import FilmMemories from "@/app/films/[slug]/FilmMemories";
+import Reveal from "@/app/home/Reveal";
+import Header from "@/app/components/shared/Header";
+import Footer from "@/app/components/shared/Footer";
 
 // ============================================================
 // * STATIC ROUTES
@@ -20,13 +26,25 @@ export async function generateMetadata({ params }: PageProps) {
   return film ? { title: film.title, description: film.description } : {};
 }
 
+// ? timeZone UTC stops "2026-01-15" from shifting a day in some regions
+const dateFormat = new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "long", timeZone: "UTC" });
+
 // ============================================================
-// * PAGE (follows the hand-drawn layout)
-// Header image > title + description > video > "Memories" photo grid
-// The footer comes from the shared layout, so it is not repeated here.
+// * PAGE
+// * Header image > title + description > video > "Memories" photo grid.
+// * Header and Footer are rendered here, so make sure the layout doesn't render them too.
 // ============================================================
 
-export default async function FilmPage({ params }: PageProps) {
+// * The exported page is sync. Everything async happens inside the Suspense boundary
+export default function FilmPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<main aria-busy="true" className="min-h-svh bg-background" />}>
+      <FilmContent params={params} />
+    </Suspense>
+  );
+}
+
+async function FilmContent({ params }: PageProps) {
   const { slug } = await params;
   const film = films.find((f) => f.slug === slug);
   if (!film) notFound();
@@ -34,63 +52,81 @@ export default async function FilmPage({ params }: PageProps) {
   const memories = film.memories ?? [];
 
   return (
-    <main className=" text-neutral-100">
-      {/* ============ 1. Header image ============ */}
-      <header className="relative h-[45svh] min-h-[280px] w-full md:h-[60svh]">
-        <Image
-          src={film.cover}
-          alt="" // ? decorative: the title right below carries the meaning
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-      </header>
+    <>
+      <Header />
+      <main>
+        {/* ============ 1. Header image ============ */}
+        <header className="relative h-[55svh] max-h-[620px] min-h-[380px] w-full overflow-hidden bg-[#051d1b]">
+          <Image
+            src={film.cover}
+            alt="" // ? decorative: the title right below carries the meaning
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          {/* ? Dark at the top so the floating header stays readable. The bottom is covered by the cream section */}
+          <div aria-hidden="true" className="absolute inset-0 bg-linear-to-b from-black/55 via-transparent to-black/25" />
 
-      <div className="mx-auto max-w-5xl px-6 md:px-8">
-        {/* ============ 2. Title + description ============ */}
-        <section className="py-12 md:py-16">
-          {/* ! This is the page's only h1 */}
-          <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-ink md:text-6xl">
-            {film.title}
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed  text-ink md:text-xl md:leading-relaxed">
-            {film.description}
-          </p>
-        </section>
-
-        {/* ============ 3. Video ============ */}
-        <section aria-label={`Watch ${film.title}`}>
-          {/* ! No transform/animation wrapper around the player: it can break fullscreen controls */}
-          <div className="overflow-hidden rounded-lg bg-black ring-1 ring-white/10">
-            <FilmPlayer videoSrc={film.videoSrc} poster={""} />
+          <div className="absolute inset-x-0 bottom-0">
+            <div className="mx-auto max-w-5xl px-6 pb-20 md:px-8 md:pb-24">
+              <Link
+                href="/films"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/85 transition-all hover:gap-3 hover:text-white"
+              >
+                <span aria-hidden="true">&larr;</span> All films
+              </Link>
+            </div>
           </div>
-        </section>
+        </header>
 
-        {/* ============ 4. Memories ============ */}
-        {memories.length > 0 && (
-          <section aria-labelledby="memories-title" className="py-12 md:py-16">
-            <h2 id="memories-title" className="mb-6 font-serif text-2xl font-semibold text-ink md:text-3xl">
-              Memories
-            </h2>
+        {/* ? -mt-10 / rounded top: the cream section overlaps the header image slightly, for a softer edge */}
+        <div className="relative z-10 -mt-10 rounded-t-[2.5rem] bg-background md:-mt-14">
+          <div className="mx-auto max-w-5xl px-6 md:px-8">
+            {/* ============ 2. Title + description ============ */}
+            <section className="pb-10 pt-14 md:pb-14 md:pt-20">
+              <Reveal>
+                <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+                  <span aria-hidden="true" className="h-px w-10 bg-primary/70" />
+                  <span>{categoryLabels[film.category]}</span>
+                  <span aria-hidden="true">&middot;</span>
+                  <time dateTime={film.date} className="text-muted">
+                    {dateFormat.format(new Date(film.date))}
+                  </time>
+                </p>
 
-            {/* ? 2 columns on mobile, 3 on tablet, 4 on desktop, as in the sketch */}
-            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {memories.map((memory, i) => (
-                <li key={`${memory.src}-${i}`} className="relative aspect-[4/5] overflow-hidden rounded-md bg-neutral-900">
-                  <Image
-                    src={memory.src}
-                    alt={memory.alt}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                    className="object-cover"
-                  />
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
-    </main>
+                {/* ! This is the page's only h1 */}
+                <h1 className="mt-5 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-foreground md:text-6xl">
+                  {film.title}
+                </h1>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted md:text-xl md:leading-relaxed">
+                  {film.description}
+                </p>
+              </Reveal>
+            </section>
+
+            {/* ============ 3. Video ============ */}
+            <section aria-label={`Watch ${film.title}`} className="pb-6 md:pb-10">
+              <div className="relative">
+                {/* * Offset outline behind the player, same as the home page stories */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 hidden translate-x-4 translate-y-4 rounded-card border md:block"
+                />
+                {/* ! No transform/animation wrapper around the player: it can break fullscreen controls */}
+                <div className="relative overflow-hidden rounded-card bg-background">
+                  <FilmPlayer videoSrc={film.videoSrc} poster=""/>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          {/* ============ 4. Memories ============ */}
+          {memories.length > 0 && <FilmMemories memories={memories} />}
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }

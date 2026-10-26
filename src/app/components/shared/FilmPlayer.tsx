@@ -12,7 +12,7 @@ const VideoPlayerComponent = dynamic(() => import("./VideoPlayerComponent"), {
 
 export default function FilmPlayer({ videoSrc, poster }: { videoSrc: string; poster: string }) {
   return (
-    <div className="overflow-hidden rounded-card bg-ink shadow-card">
+    <div className="overflow-hidden  shadow-card">
       <VideoPlayerComponent videoSrc={videoSrc} poster={poster} />
     </div>
   );
