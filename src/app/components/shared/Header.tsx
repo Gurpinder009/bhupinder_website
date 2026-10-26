@@ -21,7 +21,7 @@ const navLinks = [
 const socialLinks = [
   {
     name: "Instagram",
-    href: "https://www.instagram.com/YOUR_USERNAME/",
+    href: "https://www.instagram.com/gurpinder_sg009/",
     icon: "instagram",
   },
   {
