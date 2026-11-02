@@ -152,7 +152,7 @@ export default function Memories() {
         eyebrow="From the archive"
         title="Memories"
         accent="we keep"
-        action={{ label: "Full gallery", href: "/gallery" }}
+        action={{ label: "Travel Memories", href: "/travel" }}
       />
 
       <ul className="mt-12 grid auto-rows-[11rem] grid-cols-2 gap-3 sm:auto-rows-[14rem] md:mt-16 md:auto-rows-[16rem] md:grid-cols-3 md:gap-5 lg:auto-rows-[19rem]">

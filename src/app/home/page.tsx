@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 import HeroVideo from "../components/shared/HeroVideo";
-import IntroBlock from "./IntroBlock";
 import Memories from "./Memories";
 import Services from "./Services";
 import TileRow, { type Tile } from "./TileRow";
@@ -12,7 +11,7 @@ import SplashScreen from "./SplashScreen";
 import Header from "../components/shared/Header";
 import Footer from "../components/shared/Footer";
 
-// Thin gold hairline between sections
+//* Thin gold hairline between sections
 function Divider() {
   return (
     <div
@@ -22,14 +21,26 @@ function Divider() {
   );
 }
 
+
+
+
+// ============================================================
+// * MAIN COMPONENT: HomePage
+// ============================================================
+
 export default function HomePage() {
+  //? active tile
+  //this keep track of every tile that is active
   const [activeTile, setActiveTile] = useState<Tile | null>(null);
+  //? Splash screen controller 
   const [showSplash, setShowSplash] = useState(true);
 
+  //? on splash Screen Complete controller
   const handleSplashComplete = () => {
     setShowSplash(false);
   };
 
+  //Controls the splash screen component mannually
   useEffect(() => {
     if (showSplash) {
       document.body.style.overflow = "hidden";
@@ -45,9 +56,9 @@ export default function HomePage() {
   return (
     <>
 
-        {showSplash && (
-          <SplashScreen onComplete={handleSplashComplete} />
-        )}
+      {showSplash && (
+        <SplashScreen onComplete={handleSplashComplete} />
+      )}
 
       <Header />
 
@@ -81,7 +92,7 @@ export default function HomePage() {
           />
         )}
 
-      <Footer />
+        <Footer />
       </main>
     </>
   );

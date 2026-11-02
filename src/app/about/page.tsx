@@ -13,13 +13,11 @@ import Footer from "../components/shared/Footer";
 
 // TODO: replace with the photographer's real story, written in his own voice
 const story = {
-  eyebrow: "My story",
-  heading: "Hello, I'm",
-  accent: "the one behind the lens",
+  eyebrow: "About me",
+  heading: "Where Moments",
+  accent: "Become Stories",
   paragraphs: [
-    "Write the opening paragraph here: how he got started, and what first made him pick up a camera.",
-    "Add a second paragraph about his style, what he looks for in a moment, and the kind of work he loves most.",
-    "Close with something personal: where he's based, what he does off the clock, or why he stays in this work.",
+    "We believe the most beautiful stories are found in the little moments that often go unnoticed. The quiet glances, the unexpected emotions, and the subtle details that make every celebration uniquely yours. With an artistic eye and a love for genuine storytelling, we bring these moments together into timeless films that feel honest, personal, and true to your story.",
   ],
 };
 
@@ -46,9 +44,8 @@ const steps = [
 function Label({ children, onDark = false }: { children: React.ReactNode; onDark?: boolean }) {
   return (
     <p
-      className={`flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.3em] ${
-        onDark ? "text-gold" : "text-primary"
-      }`}
+      className={`flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.3em] ${onDark ? "text-gold" : "text-primary"
+        }`}
     >
       <span aria-hidden="true" className={`h-px w-10 ${onDark ? "bg-gold/70" : "bg-primary/70"}`} />
       {children}
@@ -154,7 +151,8 @@ function StorySection() {
           <div className="mt-8 space-y-5">
             {story.paragraphs.map((p, i) => (
               <Reveal key={p} delay={150 + i * 100}>
-                <p className={i === 0 ? "text-xl leading-relaxed text-foreground md:text-2xl" : "text-lg leading-relaxed text-muted"}>
+                {/* ? One longer paragraph: text-lg / text-xl reads better than the old big opening size */}
+                <p className={i === 0 ? "text-lg leading-relaxed text-foreground md:text-xl" : "text-lg leading-relaxed text-muted"}>
                   {p}
                 </p>
               </Reveal>
